@@ -1,0 +1,24 @@
+<Solution>
+    <Configurations>
+        <Platform Name="Any CPU"/>
+        <Platform Name="x64"/>
+        <Platform Name="x86"/>
+    </Configurations>
+    <Folder Name="/samples/">
+        <Project Path="samples/Counter/Counter.csproj"/>
+        <Project Path="samples/Greeter/Greeter.csproj"/>
+        <Project Path="samples/TicketReservation/TicketReservation.csproj"/>
+        <Project Path="samples/SignupWorkflow/SignupWorkflow.csproj"/>
+    </Folder>
+    <Folder Name="/src/">
+        <Project Path="src/Restate.Sdk/Restate.Sdk.csproj"/>
+        <Project Path="src/Restate.Sdk.Generators/Restate.Sdk.Generators.csproj"/>
+        <Project Path="src/Restate.Sdk.Testing/Restate.Sdk.Testing.csproj"/>
+        <Project Path="src/Restate.Sdk.Lambda/Restate.Sdk.Lambda.csproj"/>
+    </Folder>
+    <Folder Name="/test/">
+        <Project Path="test/Restate.Sdk.Generators.Tests/Restate.Sdk.Generators.Tests.csproj"/>
+        <Project Path="test/Restate.Sdk.Tests/Restate.Sdk.Tests.csproj"/>
+        <Project Path="test/Restate.Sdk.Benchmarks/Restate.Sdk.Benchmarks.csproj"/>
+    </Folder>
+</Solution>

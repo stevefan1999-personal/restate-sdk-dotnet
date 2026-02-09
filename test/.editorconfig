@@ -1,0 +1,6 @@
+[*.cs]
+# Test methods conventionally use underscores for readability
+dotnet_diagnostic.CA1707.severity = none
+
+# IL3000: Assembly.Location in single-file — tests never run as single-file apps
+dotnet_diagnostic.IL3000.severity = none

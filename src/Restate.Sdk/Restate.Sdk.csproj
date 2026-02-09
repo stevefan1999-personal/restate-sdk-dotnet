@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <RootNamespace>Restate.Sdk</RootNamespace>
+        <AssemblyName>Restate.Sdk</AssemblyName>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <IsPackable>true</IsPackable>
+        <IsAotCompatible>true</IsAotCompatible>
+        <IsTrimmable>true</IsTrimmable>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="../../README.md" Pack="true" PackagePath="\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Google.Protobuf"/>
+        <PackageReference Include="Grpc.Tools" PrivateAssets="All"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Protobuf Include="../../proto/dev/restate/service/protocol.proto"
+                  GrpcServices="None"
+                  ProtoRoot="../../proto"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="../Restate.Sdk.Generators/Restate.Sdk.Generators.csproj"
+                          OutputItemType="Analyzer"
+                          ReferenceOutputAssembly="false"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="Restate.Sdk.Lambda"/>
+        <InternalsVisibleTo Include="Restate.Sdk.Tests"/>
+        <InternalsVisibleTo Include="Restate.Sdk.Testing"/>
+        <InternalsVisibleTo Include="Restate.Sdk.Benchmarks"/>
+    </ItemGroup>
+
+</Project>

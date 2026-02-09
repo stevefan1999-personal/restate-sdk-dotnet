@@ -1,0 +1,38 @@
+root = true
+
+[*.cs]
+# CA1716: Identifiers should not match keywords — Get/Set/Call are intentional Restate API names
+dotnet_diagnostic.CA1716.severity = none
+
+# CA1000: Do not declare static members on generic types — StateKey<T>.Of() is idiomatic
+dotnet_diagnostic.CA1000.severity = none
+
+# CA5394: Random is insecure — RestateRand uses deterministic seeded Random for replay safety, not security
+dotnet_diagnostic.CA5394.severity = none
+
+# CA1815: Override Equals on value types — Awakeable<T> is not used for equality comparison
+dotnet_diagnostic.CA1815.severity = none
+
+# CA1032: Implement standard exception constructors — TerminalException intentionally requires a message
+dotnet_diagnostic.CA1032.severity = none
+
+# CA1064: Exceptions should be public — ProtocolException is intentionally internal
+dotnet_diagnostic.CA1064.severity = none
+
+# CA2012: Use ValueTasks correctly — false positive on Awakeable creation pattern
+dotnet_diagnostic.CA2012.severity = suggestion
+
+# CA1859: Use concrete types for improved performance — intentional polymorphism in context factory
+dotnet_diagnostic.CA1859.severity = suggestion
+
+# CA1822: Member can be static — Restate handler methods are instance methods invoked by the framework
+dotnet_diagnostic.CA1822.severity = suggestion
+
+# CA1816: Call GC.SuppressFinalize — not needed for test disposables
+dotnet_diagnostic.CA1816.severity = suggestion
+
+# CA1852: Type can be sealed — suggestion level for test/internal types
+dotnet_diagnostic.CA1852.severity = suggestion
+
+# CA1869: Cache JsonSerializerOptions — suggestion level, fine in tests
+dotnet_diagnostic.CA1869.severity = suggestion
