@@ -460,4 +460,73 @@ public class ClientGeneratorTests
         // Future call should include _key
         Assert.Contains("_context.CallFuture<int>", generated);
     }
+
+    [Fact]
+    public void Diagnostic_InvalidTimeSpanFormat_EmitsRESTATE009()
+    {
+        var source = """
+                     using Restate.Sdk;
+                     using System.Threading.Tasks;
+
+                     namespace TestApp;
+
+                     [Service]
+                     public class TimerService
+                     {
+                         [Handler(InactivityTimeout = "invalid")]
+                         public Task<string> Greet(Context ctx, string name) => Task.FromResult("Hello");
+                     }
+                     """;
+
+        var (driver, _, _) = GeneratorTestHelper.RunGenerator(source);
+        var diagnostics = GeneratorTestHelper.GetGeneratorDiagnostics(driver);
+
+        Assert.Contains(diagnostics, d => d.Id == "RESTATE009");
+    }
+
+    [Fact]
+    public void Diagnostic_ValidTimeSpanFormat_NoDiagnostics()
+    {
+        var source = """
+                     using Restate.Sdk;
+                     using System.Threading.Tasks;
+
+                     namespace TestApp;
+
+                     [Service]
+                     public class TimerService
+                     {
+                         [Handler(InactivityTimeout = "00:05:00")]
+                         public Task<string> Greet(Context ctx, string name) => Task.FromResult("Hello");
+                     }
+                     """;
+
+        var (driver, _, _) = GeneratorTestHelper.RunGenerator(source);
+        var diagnostics = GeneratorTestHelper.GetGeneratorDiagnostics(driver);
+
+        Assert.Empty(diagnostics);
+    }
+
+    [Fact]
+    public void Diagnostic_InvalidAbortTimeout_EmitsRESTATE009()
+    {
+        var source = """
+                     using Restate.Sdk;
+                     using System.Threading.Tasks;
+
+                     namespace TestApp;
+
+                     [Service]
+                     public class TimerService
+                     {
+                         [Handler(AbortTimeout = "xyz")]
+                         public Task<string> Greet(Context ctx, string name) => Task.FromResult("Hello");
+                     }
+                     """;
+
+        var (driver, _, _) = GeneratorTestHelper.RunGenerator(source);
+        var diagnostics = GeneratorTestHelper.GetGeneratorDiagnostics(driver);
+
+        Assert.Contains(diagnostics, d => d.Id == "RESTATE009");
+    }
 }
