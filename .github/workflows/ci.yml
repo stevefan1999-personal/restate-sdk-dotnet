@@ -32,6 +32,14 @@ jobs:
       - name: Test
         run: dotnet test --no-build -c Release --logger "trx;LogFileName=results.trx"
 
+      - name: Pack
+        run: dotnet pack --no-build -c Release -o ./artifacts
+
+      - name: Verify generator bundled
+        run: |
+          unzip -l ./artifacts/Restate.Sdk.*.nupkg | grep -q "analyzers/dotnet/cs/Restate.Sdk.Generators.dll"
+          echo "Generator DLL verified in package."
+
       - name: Upload test results
         uses: actions/upload-artifact@v4
         if: always()
