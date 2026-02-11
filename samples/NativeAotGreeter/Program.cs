@@ -1,4 +1,5 @@
 using NativeAotGreeter;
+using Restate.Sdk;
 using Restate.Sdk.Generated;
 using Restate.Sdk.Hosting;
 
@@ -8,5 +9,10 @@ using Restate.Sdk.Hosting;
 await RestateHost
     .CreateBuilder()
     .WithPort(9085)
-    .BuildAot(services => services.AddRestateGenerated())
+    .BuildAot(services =>
+    {
+        // Wire the source-generated JSON context for AOT-safe serialization.
+        JsonSerde.Configure(AppJsonContext.Default.Options);
+        services.AddRestateGenerated();
+    })
     .RunAsync();

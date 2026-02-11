@@ -23,7 +23,8 @@ public static class RestateServiceCollectionExtensions
     [RequiresUnreferencedCode("AddRestate uses reflection-based DI registration.")]
     public static IServiceCollection AddRestate(
         this IServiceCollection services,
-        Action<RestateOptions> configure)
+        Action<RestateOptions> configure
+    )
     {
         var options = new RestateOptions();
         configure(options);
@@ -47,12 +48,21 @@ public static class RestateServiceCollectionExtensions
     /// <param name="definitions">Service definitions resolved from the source-generated registry.</param>
     /// <param name="serviceTypes">The CLR types of the service implementations for DI registration.</param>
     [EditorBrowsable(EditorBrowsableState.Never)]
-    [UnconditionalSuppressMessage("AOT", "IL2072",
-        Justification = "Service types are passed from source-generated code using typeof(T), which preserves the type metadata.")]
+    [UnconditionalSuppressMessage(
+        "AOT",
+        "IL2072",
+        Justification = "Service types are passed from source-generated code using typeof(T), which preserves the type metadata."
+    )]
+    [UnconditionalSuppressMessage(
+        "Trimming",
+        "IL2062",
+        Justification = "Service types are passed from source-generated code using typeof(T), which preserves the type metadata."
+    )]
     public static IServiceCollection AddRestateAot(
         this IServiceCollection services,
         ServiceDefinition[] definitions,
-        Type[] serviceTypes)
+        Type[] serviceTypes
+    )
     {
         var registry = new ServiceRegistry();
         foreach (var def in definitions)
